@@ -16,7 +16,7 @@ During the synthesis process, each leaf is applied the following set of augmenta
 
 You can find below a simple example of how 1 plain background and 1 occulated leaf (for 10 iterations):
 
-<img src="./demo_images/simple_background.png" width="50%" height="50%">
+<img src="./demo_images/simple_background.png" width="30%" height="30%">
 
 <img src="./demo_images/simple_leaf.png" width="20%" height="20%"/>
 
