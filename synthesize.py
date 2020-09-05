@@ -118,29 +118,29 @@ if __name__ == "__main__":
         print("Please specify a config json file.")
     except:
         print("Encountered errors while parsing json")
-    
-    background_path = config["background"]
-    background_mask_path = config["background_mask"]
-    background_src = cv2.cvtColor(cv2.imread(background_path), cv2.COLOR_BGR2RGB)
-    background_mask_src = cv2.cvtColor(cv2.imread(background_mask_path), cv2.COLOR_BGR2RGB)
-    max_background_row, max_background_col, _ = background_src.shape
+    else:
+        background_path = config["background"]
+        background_mask_path = config["background_mask"]
+        background_src = cv2.cvtColor(cv2.imread(background_path), cv2.COLOR_BGR2RGB)
+        background_mask_src = cv2.cvtColor(cv2.imread(background_mask_path), cv2.COLOR_BGR2RGB)
+        max_background_row, max_background_col, _ = background_src.shape
 
-    leaves = config["leaves"]
-    leaves_src = [[cv2.cvtColor(cv2.imread(leaf[0]), cv2.COLOR_BGR2RGB), leaf[1]] for leaf in leaves]
+        leaves = config["leaves"]
+        leaves_src = [[cv2.cvtColor(cv2.imread(leaf[0]), cv2.COLOR_BGR2RGB), leaf[1]] for leaf in leaves]
 
-    encodings = config["encodings"]
-    num_leaves = config["iterations"]
-    num_simulations = config["num_copies"]
-    side_len = config["dim"]
+        encodings = config["encodings"]
+        num_leaves = config["iterations"]
+        num_simulations = config["num_copies"]
+        side_len = config["dim"]
 
-    for i in range(num_simulations):
-        r = int(np.random.uniform(0, max_background_row - side_len))
-        c = int(np.random.uniform(0, max_background_col - side_len))
-        background_patch = background_src[r:r+side_len, c:c+side_len, :]
-        background_mask_patch = background_mask_src[r:r+side_len, c:c+side_len, :]
-        synthesized_background, synthesized_mask = build_randomized_layout(
-            leaves_src, background_patch, background_mask_patch, num_leaves)
-        plt.imsave("{}-{}.png".format("Synthesized-Background", i), synthesized_background)
-        plt.imsave("{}-{}.png".format("Synthesized-Mask", i), synthesized_mask)
+        for i in range(num_simulations):
+            r = int(np.random.uniform(0, max_background_row - side_len))
+            c = int(np.random.uniform(0, max_background_col - side_len))
+            background_patch = background_src[r:r+side_len, c:c+side_len, :]
+            background_mask_patch = background_mask_src[r:r+side_len, c:c+side_len, :]
+            synthesized_background, synthesized_mask = build_randomized_layout(
+                leaves_src, background_patch, background_mask_patch, num_leaves)
+            plt.imsave("{}-{}.png".format("Synthesized-Background", i), synthesized_background)
+            plt.imsave("{}-{}.png".format("Synthesized-Mask", i), synthesized_mask)
 
 
