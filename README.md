@@ -26,10 +26,14 @@ The file `sample_config.json` contains the configurations used in generating one
 
 Here's a randomly synthesized background with the leaves overlayed on top:
 
-**Here's the original patch**: ![Original Patch](./demo_images/original_patch.png)
+**Here's the original patch**: 
+<img src="./demo_images/original_patch.png" width="40%" height="40%" />
 
-**Here's the mask for the original patch**: ![Original Mask](./demo_images/original_patch_mask.png)
+**Here's the mask for the original patch**: 
+<img src="./demo_images/original_patch_mask.png" width="40%" height="40%" />
 
-**Here's the synthesized patch**: ![Synthesized Patch](./demo_images/synthesized_patch.png)
+**Here's the synthesized patch**:
+<img src="./demo_images/synthesized_patch.png" width="40%" height="40%" />
 
-**Here's the mask for the synthesized patch**: ![Synthesized Mask](./demo_images/synthesized_patch_mask.png)
+**Here's the mask for the synthesized patch**: 
+<img src="./demo_images/synthesized_patch_mask.png" width="40%" height="40%" />
