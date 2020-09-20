@@ -24,13 +24,18 @@ The file `sample_config.json` contains the configurations used in generating one
 
 <img src="./demo_images/mask.png" width="40%" height="40%"/>
 
-Here's a randomly synthesized background with the leaves overlayed on top:
+Below you can find a randomly 512x512 synthesized background with the leaves overlayed on top:
 
-**Here's the original patch and its mask**: 
-<img src="./demo_images/original_patch.png" width="30%" height="30%" /> 
-<img src="./demo_images/original_patch_mask.png" width="30%" height="30%" />
+Here's the **original** patch and its mask: 
 
-**Here's the synthesized patch and its mask**:
+<div style="display: flex;">
+  <img src="./demo_images/original_patch.png" width="30%" height="30%" /> 
+  <img src="./demo_images/original_patch_mask.png" width="30%" height="30%" />
+</div>
 
-<img src="./demo_images/synthesized_patch.png" width="30%" height="30%" />
-<img src="./demo_images/synthesized_patch_mask.png" width="30%" height="30%" />
+Here's the **synthesized** patch and its mask:
+
+<div style="display: flex">
+  <img src="./demo_images/synthesized_patch.png" width="30%" height="30%" />
+  <img src="./demo_images/synthesized_patch_mask.png" width="30%" height="30%" />
+</div>
