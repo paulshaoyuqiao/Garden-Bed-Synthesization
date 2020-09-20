@@ -4,13 +4,8 @@ import cv2
 import numpy as np
 import matplotlib.pyplot as plt
 import json
-
-# Sample encoding mapping leaf types (ordinal) to RGB values.
-ENCODING = {
-    0: [255, 0, 0],
-    1: [0, 255, 0],
-    2: [0, 0, 255]
-}
+import random
+import os
 
 def create_mask(leaf, leaf_type):
     """This method creates a mask over the leaf based on the provided encoding.
@@ -20,8 +15,8 @@ def create_mask(leaf, leaf_type):
     _, mask = cv2.threshold(gray_scaled, 10, 255, cv2.THRESH_BINARY)
     rows, cols = mask.shape
     remasked = np.zeros((rows, cols, 3), dtype=np.uint8)
-    remasked[mask[:, :] > 0, :] = ENCODING[leaf_type]
-    return remasked
+    remasked[mask[:, :] > 0, :] = ENCODING[str(leaf_type)]
+    return remasked.astype(np.uint8)
 
 def rotate_image(mat, angle):
     """Rotates an image (angle in degrees) about the center and expands image to avoid cropping
@@ -52,11 +47,8 @@ def build_randomized_layout(leaves_src, background_src, background_mask_src, num
     overlaying augmented single leaves on top of the original background.
     In the end, an updated garden bed along with its mask are returned.
     """
-    # Fix random seed for reproducible results.
-    np.random.seed(seed)
-    
-    leaves = [[np.copy(leaf_src[0]), leaf_src[1]] for leaf_src in leaves_src]
-    leaves_mask = [create_mask(leaf_src[0]) for leaf_src in leaves_src]
+    leaves = [[np.copy(leaf_src[0]).astype(np.uint8), leaf_src[1]] for leaf_src in leaves_src]
+    leaves_mask = [create_mask(leaf_src[0], leaf_src[1]) for leaf_src in leaves_src]
 
     max_rows, max_cols, _ = background_src.shape
     background = np.copy(background_src)
@@ -64,11 +56,11 @@ def build_randomized_layout(leaves_src, background_src, background_mask_src, num
     
     for i in range(num_iters):
         idx = i % len(leaves)
-        leaf = np.copy(leaves[idx])
+        leaf = np.copy(leaves[idx][0])
         leaf_mask = np.copy(leaves_mask[idx])
 
         # Randomly resize the leaf and its mask between 0.75x and 1.25x.
-        dim_ratio = np.random.uniform(0.75, 1.25)
+        dim_ratio = np.random.uniform(0.8, 1.2)
         leaf = cv2.resize(leaf, (0, 0), fx=dim_ratio, fy=dim_ratio)
         leaf_mask = cv2.resize(leaf_mask, (0, 0), fx=dim_ratio, fy=dim_ratio)
 
@@ -119,6 +111,7 @@ if __name__ == "__main__":
     except:
         print("Encountered errors while parsing json")
     else:
+        generated_folder_name = "generated"
         background_path = config["background"]
         background_mask_path = config["background_mask"]
         background_src = cv2.cvtColor(cv2.imread(background_path), cv2.COLOR_BGR2RGB)
@@ -126,12 +119,15 @@ if __name__ == "__main__":
         max_background_row, max_background_col, _ = background_src.shape
 
         leaves = config["leaves"]
+        random.shuffle(leaves)
         leaves_src = [[cv2.cvtColor(cv2.imread(leaf[0]), cv2.COLOR_BGR2RGB), leaf[1]] for leaf in leaves]
 
-        encodings = config["encodings"]
+        ENCODING = config["encodings"]
         num_leaves = config["iterations"]
         num_simulations = config["num_copies"]
         side_len = config["dim"]
+
+        os.mkdir(generated_folder_name)
 
         for i in range(num_simulations):
             r = int(np.random.uniform(0, max_background_row - side_len))
@@ -140,7 +136,9 @@ if __name__ == "__main__":
             background_mask_patch = background_mask_src[r:r+side_len, c:c+side_len, :]
             synthesized_background, synthesized_mask = build_randomized_layout(
                 leaves_src, background_patch, background_mask_patch, num_leaves)
-            plt.imsave("{}-{}.png".format("Synthesized-Background", i), synthesized_background)
-            plt.imsave("{}-{}.png".format("Synthesized-Mask", i), synthesized_mask)
+            plt.imsave("{}/{}-{}.png".format(generated_folder_name, "Original-Background", i), background_patch)
+            plt.imsave("{}/{}-{}.png".format(generated_folder_name, "Original-Mask", i), background_mask_patch)
+            plt.imsave("{}/{}-{}.png".format(generated_folder_name, "Synthesized-Background", i), synthesized_background)
+            plt.imsave("{}/{}-{}.png".format(generated_folder_name, "Synthesized-Mask", i), synthesized_mask)
 
 

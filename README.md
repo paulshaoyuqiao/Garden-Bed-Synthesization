@@ -14,11 +14,20 @@ During the synthesis process, each leaf is applied the following set of augmenta
 - A uniformly random degrees of rotation
 - A uniformly random resizing between 0.75x and 1.25x
 
-You can find below a simple example of how 1 plain background and 1 occulated leaf (for 10 iterations):
+You can find an example below using 1 overhead image as the original background (with mask), and 8 occulated leaves for 3 different types (nasturtium: 0, borage: 1, bokchoy: 2) (5 additional leaves per image for a total of 10 synthesized images):
 
-<img src="./demo_images/simple_background.png" width="30%" height="30%">
+The file `sample_config.json` contains the configurations used in generating one of the patches below. 
 
-<img src="./demo_images/simple_leaf.png" width="20%" height="20%"/>
+<img src="./demo_images/original.png" width="40%" height="40%">
+
+<img src="./demo_images/mask.png" width="40%" height="40%"/>
 
 Here's a randomly synthesized background with the leaves overlayed on top:
-![One Synthesized Image](./demo_images/simple_synthesized.png)
+
+**Here's the original patch**: ![Original Patch](./demo_images/original_patch.png)
+
+**Here's the mask for the original patch**: ![Original Mask](./demo_images/original_patch_mask.png)
+
+**Here's the synthesized patch**: ![Synthesized Patch](./demo_images/synthesized_patch.png)
+
+**Here's the mask for the synthesized patch**: ![Synthesized Mask](./demo_images/synthesized_patch_mask.png)
