@@ -14,6 +14,8 @@ During the synthesis process, each leaf is applied the following set of augmenta
 - A uniformly random degrees of rotation
 - A uniformly random resizing between 0.75x and 1.25x
 
+The resulting synthesized patches, along with their masks, and the original patch/mask from which they come from will all be found within the folder `generated` at the root directory of this project after calling the script.
+
 You can find an example below using 1 overhead image as the original background (with mask), and 8 occulated leaves for 3 different types (nasturtium: 0, borage: 1, bokchoy: 2) (5 additional leaves per image for a total of 10 synthesized images):
 
 The file `sample_config.json` contains the configurations used in generating one of the patches below. 
