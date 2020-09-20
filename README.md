@@ -20,22 +20,24 @@ You can find an example below using 1 overhead image as the original background 
 
 The file `sample_config.json` contains the configurations used in generating one of the patches below. 
 
-<img src="./demo_images/original.png" width="40%" height="40%">
+Here's the **original overhead** image and its mask:
 
-<img src="./demo_images/mask.png" width="40%" height="40%"/>
+<img src="./demo_images/original.png" width="48%" height="48%">
+
+<img src="./demo_images/mask.png" width="48%" height="48%"/>
 
 Below you can find a randomly 512x512 synthesized background with the leaves overlayed on top:
 
 Here's the **original** patch and its mask: 
 
 <div style="display: flex;">
-  <img src="./demo_images/original_patch.png" width="30%" height="30%" /> 
-  <img src="./demo_images/original_patch_mask.png" width="30%" height="30%" />
+  <img src="./demo_images/original_patch.png" width="25%" height="25%" /> 
+  <img src="./demo_images/original_patch_mask.png" width="25%" height="25%" />
 </div>
 
 Here's the **synthesized** patch and its mask:
 
 <div style="display: flex">
-  <img src="./demo_images/synthesized_patch.png" width="30%" height="30%" />
-  <img src="./demo_images/synthesized_patch_mask.png" width="30%" height="30%" />
+  <img src="./demo_images/synthesized_patch.png" width="25%" height="25%" />
+  <img src="./demo_images/synthesized_patch_mask.png" width="25%" height="25%" />
 </div>
