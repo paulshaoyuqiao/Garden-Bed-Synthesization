@@ -1,6 +1,6 @@
 # Garden-Bed-Synthesization
 
-This repo contains a synthesizier that can generate garden bed images for the leaf segmentation task in the AlphaGarden research project. It takes in a `json` file containing the following specifications:
+This repo contains a synthesizier that can generate garden bed images for the leaf segmentation task in the AlphaGarden research project. It takes in a `config.json` file containing the following specifications:
 - `background`: path to the background image file
 - `background_mask`: path to the ground truth mask of the background
 - `leaves`: a nested list of 2-element lists containing (path to single occulated leaf image, oridinal leaf type)
@@ -15,6 +15,8 @@ During the synthesis process, each leaf is applied the following set of augmenta
 - A uniformly random resizing between 0.75x and 1.25x
 
 The resulting synthesized patches, along with their masks, and the original patch/mask from which they come from will all be found within the folder `generated` at the root directory of this project after calling the script.
+
+**To run the script (given all the prerequisites are satisfied)**, at the project root level, simply call `python3 synthesize.py`.
 
 You can find an example below using 1 overhead image as the original background (with mask), and 8 occulated leaves for 3 different types (nasturtium: 0, borage: 1, bokchoy: 2) (5 additional leaves per image for a total of 10 synthesized images):
 
