@@ -1,6 +1,6 @@
 # Garden-Bed-Synthesization
 
-This repo contains scripts helpful for generating synthesized garden bed data for the leaf segmentation task in the AlphaGarden research project. It takes in a `json` file containing the following specifications:
+This repo contains a synthesizier that can generate garden bed images for the leaf segmentation task in the AlphaGarden research project. It takes in a `json` file containing the following specifications:
 - `background`: path to the background image file
 - `background_mask`: path to the ground truth mask of the background
 - `leaves`: a nested list of 2-element lists containing (path to single occulated leaf image, oridinal leaf type)
