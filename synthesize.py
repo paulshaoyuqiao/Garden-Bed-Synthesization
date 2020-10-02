@@ -104,14 +104,18 @@ def build_randomized_layout(leaves_src, background_src, background_mask_src, num
 
 if __name__ == "__main__":
     try:
-        f = open("config.json")
+        f = open("sample_config.json")
         config = json.load(f)
     except FileNotFoundError:
         print("Please specify a config json file.")
     except:
         print("Encountered errors while parsing json")
     else:
-        generated_folder_name = "generated"
+        generated_folder_name = "generated-images"
+        generated_mask_folder_name = "generated-masks"
+        original_folder_name = "original-images"
+        original_mask_folder_name = "original_masks"
+
         background_path = config["background"]
         background_mask_path = config["background_mask"]
         background_src = cv2.cvtColor(cv2.imread(background_path), cv2.COLOR_BGR2RGB)
@@ -127,18 +131,21 @@ if __name__ == "__main__":
         num_simulations = config["num_copies"]
         side_len = config["dim"]
 
-        os.mkdir(generated_folder_name)
+        for folder_name in [generated_folder_name, generated_mask_folder_name, original_folder_name, original_mask_folder_name]:
+            os.mkdir(folder_name)
+
+        offset = 250
 
         for i in range(num_simulations):
-            r = int(np.random.uniform(0, max_background_row - side_len))
+            r = int(np.random.uniform(max_background_row // 2, max_background_row - side_len - 300))
             c = int(np.random.uniform(0, max_background_col - side_len))
             background_patch = background_src[r:r+side_len, c:c+side_len, :]
             background_mask_patch = background_mask_src[r:r+side_len, c:c+side_len, :]
             synthesized_background, synthesized_mask = build_randomized_layout(
                 leaves_src, background_patch, background_mask_patch, num_leaves)
-            plt.imsave("{}/{}-{}.png".format(generated_folder_name, "Original-Background", i), background_patch)
-            plt.imsave("{}/{}-{}.png".format(generated_folder_name, "Original-Mask", i), background_mask_patch)
-            plt.imsave("{}/{}-{}.png".format(generated_folder_name, "Synthesized-Background", i), synthesized_background)
-            plt.imsave("{}/{}-{}.png".format(generated_folder_name, "Synthesized-Mask", i), synthesized_mask)
+            plt.imsave("{}/{}-{}.jpg".format(original_folder_name, "original", i + offset), background_patch)
+            plt.imsave("{}/{}-{}.png".format(original_mask_folder_name, "original", i + offset), background_mask_patch)
+            plt.imsave("{}/{}-{}.jpg".format(generated_folder_name, "synthesized", i + offset), synthesized_background)
+            plt.imsave("{}/{}-{}.png".format(generated_mask_folder_name, "synthesized", i + offset), synthesized_mask)
 
 
