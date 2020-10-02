@@ -134,7 +134,7 @@ if __name__ == "__main__":
         for folder_name in [generated_folder_name, generated_mask_folder_name, original_folder_name, original_mask_folder_name]:
             os.mkdir(folder_name)
 
-        offset = 250
+        offset = 0
 
         for i in range(num_simulations):
             r = int(np.random.uniform(max_background_row // 2, max_background_row - side_len - 300))
